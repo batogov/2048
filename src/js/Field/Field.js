@@ -118,6 +118,42 @@ class Field {
 
         return newArr;
     }
+
+    /**
+     * Сдвигает элементы игрового поля в указанном направлении.
+     *
+     * @param {string} direction Направление движения ('left', 'right', 'down', 'up').
+     */
+    move(direction) {
+        if (direction === 'left' || direction === 'right') {
+            // Итерируемся по строкам
+            for (let i = 0; i < this.grid.length; i++) {
+                // Сохраняем текущую строку
+                const row = this.getRow(i);
+
+                // Выполняем сдвиг элементов в строке. Если сдвигаем поле вправо, то
+                // до и после сдвига необходимо инвертировать строку
+                if (direction === 'right') row.reverse();
+                const movedArr = this.arrayMove(row);
+                if (direction === 'right') movedArr.reverse();
+
+                // Записываем новую строку в массив поля
+                this.setRow(i, movedArr);
+            }
+        } else if (direction === 'up' || direction === 'down') {
+            // Итерируемся по столбцам и выполняем аналогичные действия, но
+            // со столбцами
+            for (let i = 0; i < this.grid.length; i++) {
+                const column = this.getColumn(i);
+
+                if (direction === 'down') column.reverse();
+                const movedArr = this.arrayMove(column);
+                if (direction === 'down') movedArr.reverse();
+
+                this.setColumn(i, movedArr);
+            }
+        }
+    }
 }
 
 export default Field;
