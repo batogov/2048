@@ -67,6 +67,17 @@ class Field {
     setCell(i, j, elem) {
         this.grid[i][j] = elem;
     }
+
+    /**
+     * Возвращает сериализованный массив текущего состояния игрового поля.
+     * Каждый элемент такого массива – строковое представление соответствующего объекта
+     * (для приведения объекта к строке используется его метод toString).
+     */
+    serializeGrid() {
+        return this.grid.map(row => (
+            row.map(elem => elem === null ? 0 : elem.toString())
+        ));
+    }
 }
 
 export default Field;
