@@ -14,6 +14,59 @@ class Field {
             }
         }
     }
+
+    /**
+     * Возвращает столбец с заданным номером из массива поля.
+     * 
+     * @param {number} n Номер столбца.
+     */
+    getColumn(n) {
+        return this.grid.map(row => row[n]);
+    }
+
+    /**
+     * Изменяет столбец с номером n в массиве поля на переданный столбец.
+     * 
+     * @param {number} n Номер столбца.
+     * @param {Array} column Новый столбец, представленный в виде массива
+     * длины n.
+     */
+    setColumn(n, column) {
+        this.grid.forEach((row, index) => {
+            row[n] = column[index];
+        });
+    }
+
+    /**
+     * Возвращает строку с заданным номером из массива поля.
+     * 
+     * @param {number} n Номер строки.
+     */
+    getRow(n) {
+        return this.grid[n].slice();
+    }
+
+    /**
+     * Изменяет строку с номером n в массиве поля на переданный столбец.
+     * 
+     * @param {number} n Номер строки.
+     * @param {Array} column Новая строка, представленный в виде массива
+     * длины n.
+     */
+    setRow(n, row) {
+        this.grid[n] = row;
+    }
+
+    /**
+     * Записывает переданный объект в ячейку с индексами i, j.
+     * 
+     * @param {number} i Индекс строки.
+     * @param {number} j Индекс столбца.
+     * @param {*} elem Объект, который необходимо записать в ячейку поля.
+     */
+    setCell(i, j, elem) {
+        this.grid[i][j] = elem;
+    }
 }
 
 export default Field;
