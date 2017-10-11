@@ -78,6 +78,46 @@ class Field {
             row.map(elem => elem === null ? 0 : elem.toString())
         ));
     }
+
+    /**
+     * Функция возвращает массив, в котором элементы из исходного массива
+     * сдвинуты в начало. Элементы – объекты. Если подряд идут два одинаковых
+     * элемента (для проверки используется функция compare), то они сливаются 
+     * в один (с помощью функции merge).
+     *
+     * @param {Array} arr Переданный массив. В качестве пустых элементов
+     * должен использоваться null.
+     */
+    arrayMove(arr) {
+        const newArr = arr.slice();
+
+        for (let i = 0; i < newArr.length; i++) {
+            let k = i;
+            while (k !== 0) {
+                // Если текущий элемент нулевой – выходим из внутреннего цикла
+                if (newArr[k] === null) {
+                    break;
+                } else if (newArr[k - 1] === null) {
+                    // Если предыдущий элемент нулевой – перемещаем текущий
+                    // элемент на его место
+                    newArr[k - 1] = newArr[k];
+                } else {
+                    if (this.compare(newArr[k], newArr[k - 1])) {
+                        // Если предыдущий элемент равен текущему – сливаем их
+                        // с помощью функции merge
+                        newArr[k - 1] = this.merge(newArr[k], newArr[k - 1]);
+                    } else {
+                        // Иначе выходим из внутреннего цикла
+                        break;
+                    }
+                }
+                newArr[k] = null;
+                k--;
+            }
+        }
+
+        return newArr;
+    }
 }
 
 export default Field;
