@@ -69,13 +69,35 @@ class Field {
     }
 
     /**
+     * Возвращает индексы (i, j) случайной пустой ячейки игрового поля.
+     */
+    getRandomAvailableCell() {
+        const availableCells = [];
+
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid.length; j++) {
+                if (this.grid[i][j] === null) {
+                    availableCells.push([i, j]);
+                }
+            }
+        }
+
+        if (availableCells.length !== 0) {
+            const randomIndex = ~~(Math.random() * availableCells.length);
+            return availableCells[randomIndex];
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Возвращает сериализованный массив текущего состояния игрового поля.
      * Каждый элемент такого массива – строковое представление соответствующего объекта
      * (для приведения объекта к строке используется его метод toString).
      */
     serializeGrid() {
         return this.grid.map(row => (
-            row.map(elem => elem === null ? 0 : elem.toString())
+            row.map(elem => elem === null ? 0 : elem.valueOf())
         ));
     }
 
