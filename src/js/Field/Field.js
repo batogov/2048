@@ -3,7 +3,10 @@ class Field {
         this.merge = merge;
         this.compare = compare;
 
-        // Двумерный массив, содержащий текущее состояние игрового поля
+        // Двумерный массив, содержащий предыдущее состояние игрового поля
+        this.prevGrid = [];
+
+        // Текущее состояние игрового поля
         this.grid = [];
 
         // Заполняем массив поля нулевыми значениями
@@ -66,6 +69,31 @@ class Field {
      */
     setCell(i, j, elem) {
         this.grid[i][j] = elem;
+    }
+
+    /**
+     * Функция возвращает копию текущего состояния игрового поля.
+     */
+    copyGrid() {
+        return this.grid.map(row => row.slice());
+    }
+
+    /**
+     * Если предудущее состояние игрового поля отличается от текущего, то
+     * функция возвращает true, иначе – false.
+     */
+    wasGridChanged() {
+        if (this.prevGrid === []) return true;
+
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid.length; j++) {
+                if (this.grid[i][j] !== this.prevGrid[i][j]) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -147,6 +175,9 @@ class Field {
      * @param {string} direction Направление движения ('left', 'right', 'down', 'up').
      */
     move(direction) {
+        // Обновляем предыдущее состояние поля
+        this.prevGrid = this.copyGrid();
+
         if (direction === 'left' || direction === 'right') {
             // Итерируемся по строкам
             for (let i = 0; i < this.grid.length; i++) {
