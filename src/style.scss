@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Nunito', sans-serif;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 360px;
+    height: 360px;
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 10px;
+    width: 70px;
+    height: 70px;
+
+    color: #FFF;
+    font-size: 24px;
+
+    background-color: rgb(246, 246, 246);
+    border-radius: 50%;
+
+    &--2 { background-color: #00B7FF; }
+    &--4 { background-color: #00E9D3; }
+    &--8 { background-color: #00CC57; }
+    &--16 { background-color: #95E211; }
+    &--32 { background-color: #FFE400; }
+    &--64 { background-color: #FFAC00; }
+    &--128 { background-color: #FF601E; }
+    &--256 { background-color: #FF0007; }
+    &--512 { background-color: #FE76CB; }
+    &--1024 { background-color: #D726C2; }
+    &--2048 { background-color: #8E00DF; }
+}
+

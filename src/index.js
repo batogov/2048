@@ -1,2 +1,7 @@
-import Field from './js/Field/Field';
-import Tile from './js/Tile/Tile';
+import Game from './js/Game/Game';
+import './style.scss';
+
+const gridElem = document.querySelector('.grid');
+const game = new Game(gridElem);
+
+game.init();
