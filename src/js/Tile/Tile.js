@@ -5,14 +5,13 @@ class Tile {
 
     /**
      * Функция сливает два тайла и возвращает результирующий тайл. Поле value
-     * результирующего тайла рассчитывается, как произведение соответствующих
-     * полей у переданных тайлов.
+     * результирующего тайла удваивается.
      * 
      * @param {Tile} firstTile Первый тайл.
      * @param {Tile} secondTile Второй тайл.
      */
     static merge(firstTile, secondTile) {
-        const newValue = firstTile.value * secondTile.value;
+        const newValue = firstTile.value * 2;
         return new Tile(newValue);
     }
 
