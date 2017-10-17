@@ -5,6 +5,7 @@ class Game {
     constructor(gridElem) {
         this.gridElem = gridElem;
         this.field = new Field(4, Tile.merge, Tile.compare);
+        this.nextTileId = 0;
 
         this.DIRECTIONS = {
             '37': 'left',
@@ -32,13 +33,13 @@ class Game {
                 }
 
                 // Рендерим поле
-                this.renderGrid(this.field.serializeGrid());
+                this.renderGrid(this.field.grid);
             }
         });
 
         // Инициализация
         this.addRandomTile();
-        this.renderGrid(this.field.serializeGrid());
+        this.renderGrid(this.field.grid);
     }
 
     /**
@@ -46,25 +47,41 @@ class Game {
      * @param {Array} grid Игровое поле.
      */
     renderGrid(grid) {
-        this.gridElem.innerHTML = '';
-        const fragment = document.createDocumentFragment();
+        // Удаляем все элементы тайлов с классом "tile--merged"
+        const mergedTileElems = document.querySelectorAll('.tile--merged');
+        mergedTileElems.forEach(mergedTileElem => mergedTileElem.remove());
 
-        grid.forEach(row => {
-            row.forEach(cell => {
-                const tileElem =  document.createElement('div');
+        for (let i = 0; i < grid.length; i++) {
+            for (let j = 0; j < grid.length; j++) {
+                // Текущий тайл
+                const tile = grid[i][j];
 
-                if (cell.valueOf() !== 0) {
-                    tileElem.classList.add('tile', `tile--${cell.toString()}`);
-                    tileElem.innerHTML = cell.valueOf();
-                } else {
-                    tileElem.classList.add('tile');
+                if (tile !== null) {
+                    const tileElem = document.getElementById(tile.id);
+
+                    // Если элемент тайла есть на странице
+                    if (tileElem !== null) {
+                        // Обновляем его положение на поле
+                        tileElem.className = `tile tile--${tile.toString()} tile--tile-pos-${i}-${j}`;
+                        tileElem.innerHTML = tile.toString();
+
+                        // Если есть слитый тайл, то обновляем его положение
+                        if (tile.mergedFrom !== null) {
+                            const mergedTileElem = document.getElementById(tile.mergedFrom.id);
+                            mergedTileElem.className = `tile tile--merged tile--${tile.mergedFrom.toString()} tile--tile-pos-${i}-${j}`;
+                            tile.mergedFrom = null;
+                        }
+                    } else {
+                        // Иначе создаём новый элемент тайла
+                        const newTileElem = document.createElement('div');
+                        newTileElem.id = tile.id;
+                        newTileElem.className = `tile tile--new tile--${tile.toString()} tile--tile-pos-${i}-${j}`;
+                        newTileElem.innerHTML = tile.toString();
+                        this.gridElem.appendChild(newTileElem);
+                    }
                 }
-
-                fragment.appendChild(tileElem);
-            });
-        });
-
-        this.gridElem.appendChild(fragment);
+            }
+        }
     }
 
     /**
@@ -72,7 +89,10 @@ class Game {
      */
     addRandomTile() {
         const randomCell = this.field.getRandomAvailableCell();
-        this.field.setCell(...randomCell, new Tile(2));
+        this.field.setCell(...randomCell, new Tile(this.nextTileId, 2));
+
+        // Инкрементируем счётчик id для следущего тайла
+        this.nextTileId++;
     }
 }
 

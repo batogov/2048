@@ -132,14 +132,17 @@ class Field {
     /**
      * Функция возвращает массив, в котором элементы из исходного массива
      * сдвинуты в начало. Элементы – объекты. Если подряд идут два одинаковых
-     * элемента (для проверки используется функция compare), то они сливаются 
+     * элемента (для проверки используется функция compare), то они сливаются
      * в один (с помощью функции merge).
      *
      * @param {Array} arr Переданный массив. В качестве пустых элементов
      * должен использоваться null.
      */
     arrayMove(arr) {
+        // Копируем массив
         const newArr = arr.slice();
+
+        let isMerged = false;
 
         for (let i = 0; i < newArr.length; i++) {
             let k = i;
@@ -152,10 +155,11 @@ class Field {
                     // элемент на его место
                     newArr[k - 1] = newArr[k];
                 } else {
-                    if (this.compare(newArr[k], newArr[k - 1])) {
+                    if (!isMerged && this.compare(newArr[k], newArr[k - 1])) {
                         // Если предыдущий элемент равен текущему – сливаем их
                         // с помощью функции merge
-                        newArr[k - 1] = this.merge(newArr[k], newArr[k - 1]);
+                        newArr[k - 1] = this.merge(newArr[k - 1], newArr[k]);
+                        isMerged = true;
                     } else {
                         // Иначе выходим из внутреннего цикла
                         break;
