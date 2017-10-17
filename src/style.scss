@@ -19,6 +19,8 @@ body {
 }
 
 .score {
+    position: relative;
+
     margin-bottom: 25px;
 
     text-align: center;
@@ -33,6 +35,20 @@ body {
         display: block;
         color: #000;
         font-size: 36px;
+    }
+
+    &__addition {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+
+        font-size: 28px;
+        color: #00B7FF;
+
+        transform: translateX(-50%);
+
+        animation: move-up 600ms ease-in;
+        animation-fill-mode: both;
     }
 }
 
@@ -195,6 +211,18 @@ body {
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes move-up {
+    0% {
+        bottom: -20px;
+        opacity: 1;
+    }
+  
+    100% {
+        bottom: 10px;
+        opacity: 0;
     }
 }
 

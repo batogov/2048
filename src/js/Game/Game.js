@@ -8,7 +8,7 @@ class Game {
         this.nextTileId = 0;
 
         this.score = 0;
-        this.scoreElem = gameElem.querySelector('.score__value');
+        this.scoreElem = gameElem.querySelector('.score');
 
         this.DIRECTIONS = {
             '37': 'left',
@@ -71,7 +71,7 @@ class Game {
                         // Если есть слитый тайл, то обновляем его положение + увеличиваем счёт игры
                         if (tile.mergedFrom !== null) {
                             this.score += tile.valueOf();
-                            this.scoreElem.innerHTML = this.score;
+                            this.renderScore(this.score, tile.valueOf());
 
                             const mergedTileElem = document.getElementById(tile.mergedFrom.id);
                             mergedTileElem.className = `tile tile--merged tile--${tile.mergedFrom.toString()} tile--tile-pos-${i}-${j}`;
@@ -99,6 +99,24 @@ class Game {
 
         // Инкрементируем счётчик id для следущего тайла
         this.nextTileId++;
+    }
+
+    renderScore(score, additionScore) {
+        // Обновляем значение счёта
+        const scoreValueElem = this.scoreElem.querySelector('.score__value');
+        scoreValueElem.innerHTML = score;
+
+        // Удаляем существующий элемент прибавки счёта
+        const additionScoreElem = this.scoreElem.querySelector('.score__addition');
+        if (additionScoreElem !== null) {
+            additionScoreElem.remove();
+        }
+
+        // Создаём новый и добавляем его на страницу
+        const newAdditionScoreElem = document.createElement('span');
+        newAdditionScoreElem.innerHTML = additionScore;
+        newAdditionScoreElem.className = 'score__addition';
+        this.scoreElem.appendChild(newAdditionScoreElem);
     }
 }
 
