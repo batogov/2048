@@ -1,7 +1,7 @@
 import Game from './js/Game/Game';
 import './style.scss';
 
-const gridElem = document.querySelector('.grid');
-const game = new Game(gridElem);
+const gameElem = document.querySelector('.game');
+const game = new Game(gameElem);
 
 game.init();

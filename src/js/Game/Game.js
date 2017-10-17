@@ -2,10 +2,13 @@ import Field from './../Field/Field';
 import Tile from './../Tile/Tile';
 
 class Game {
-    constructor(gridElem) {
-        this.gridElem = gridElem;
+    constructor(gameElem) {
+        this.gridElem = gameElem.querySelector('.grid');
         this.field = new Field(4, Tile.merge, Tile.compare);
         this.nextTileId = 0;
+
+        this.score = 0;
+        this.scoreElem = gameElem.querySelector('.score__value');
 
         this.DIRECTIONS = {
             '37': 'left',
@@ -65,8 +68,11 @@ class Game {
                         tileElem.className = `tile tile--${tile.toString()} tile--tile-pos-${i}-${j}`;
                         tileElem.innerHTML = tile.toString();
 
-                        // Если есть слитый тайл, то обновляем его положение
+                        // Если есть слитый тайл, то обновляем его положение + увеличиваем счёт игры
                         if (tile.mergedFrom !== null) {
+                            this.score += tile.valueOf();
+                            this.scoreElem.innerHTML = this.score;
+
                             const mergedTileElem = document.getElementById(tile.mergedFrom.id);
                             mergedTileElem.className = `tile tile--merged tile--${tile.mergedFrom.toString()} tile--tile-pos-${i}-${j}`;
                             tile.mergedFrom = null;
