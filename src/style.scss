@@ -52,6 +52,31 @@ body {
     }
 }
 
+.footer {
+    display: flex;
+    align-items: center;
+    width: 360px;
+    padding: 0 10px;
+    margin-top: 25px;
+
+    &__annotation {
+        color: #9D9D9D;
+        font-size: 18px;
+    }
+
+    &__repeat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+
+        background-color: rgb(246, 246, 246);
+        border-radius: 50%;
+    }
+}
+
 .grid {
     position: relative;
 
@@ -225,4 +250,3 @@ body {
         opacity: 0;
     }
 }
-
