@@ -1,14 +1,16 @@
 import Field from './../Field/Field';
 import Tile from './../Tile/Tile';
 
+import GameView from './Game-view';
+
 class Game {
     constructor(gameElem) {
-        this.gridElem = gameElem.querySelector('.grid');
+        this.gameElem = gameElem;
         this.field = new Field(4, Tile.merge, Tile.compare);
         this.nextTileId = 0;
 
+        this.prevScore = 0;
         this.score = 0;
-        this.scoreElem = gameElem.querySelector('.score');
 
         this.DIRECTIONS = {
             '37': 'left',
@@ -22,71 +24,32 @@ class Game {
      * Метод инициализации игры.
      */
     init() {
+        this.view = new GameView(this.gameElem);
+
         // Обработчик на нажатие клавиш
-        document.addEventListener('keydown', (event) => {
-            const keyCodeStr = String(event.keyCode);
-
-            if (keyCodeStr in this.DIRECTIONS) {
-                // Сдвигаем поле в нужном направлении
-                this.field.move(this.DIRECTIONS[keyCodeStr]);
-
-                // Если игровое поле изменилось, то добавляем новый тайл
-                if (this.field.wasGridChanged()) {
-                    this.addRandomTile();
-                }
-
-                // Рендерим поле
-                this.renderGrid(this.field.grid);
-            }
-        });
+        document.addEventListener('keydown', this.onKeydown.bind(this));
 
         // Инициализация
         this.addRandomTile();
-        this.renderGrid(this.field.grid);
+        this.view.renderGrid(this.field);
     }
 
-    /**
-     * Метод рендерит на странице игровое поле.
-     * @param {Array} grid Игровое поле.
-     */
-    renderGrid(grid) {
-        // Удаляем все элементы тайлов с классом "tile--merged"
-        const mergedTileElems = document.querySelectorAll('.tile--merged');
-        mergedTileElems.forEach(mergedTileElem => mergedTileElem.remove());
+    onKeydown(event) {
+        const keyCodeStr = String(event.keyCode);
 
-        for (let i = 0; i < grid.length; i++) {
-            for (let j = 0; j < grid.length; j++) {
-                // Текущий тайл
-                const tile = grid[i][j];
+        if (keyCodeStr in this.DIRECTIONS) {
+            // Сдвигаем поле в нужном направлении
+            this.field.move(this.DIRECTIONS[keyCodeStr]);
+            this.updateScore();
 
-                if (tile !== null) {
-                    const tileElem = document.getElementById(tile.id);
-
-                    // Если элемент тайла есть на странице
-                    if (tileElem !== null) {
-                        // Обновляем его положение на поле
-                        tileElem.className = `tile tile--${tile.toString()} tile--tile-pos-${i}-${j}`;
-                        tileElem.innerHTML = tile.toString();
-
-                        // Если есть слитый тайл, то обновляем его положение + увеличиваем счёт игры
-                        if (tile.mergedFrom !== null) {
-                            this.score += tile.valueOf();
-                            this.renderScore(this.score, tile.valueOf());
-
-                            const mergedTileElem = document.getElementById(tile.mergedFrom.id);
-                            mergedTileElem.className = `tile tile--merged tile--${tile.mergedFrom.toString()} tile--tile-pos-${i}-${j}`;
-                            tile.mergedFrom = null;
-                        }
-                    } else {
-                        // Иначе создаём новый элемент тайла
-                        const newTileElem = document.createElement('div');
-                        newTileElem.id = tile.id;
-                        newTileElem.className = `tile tile--new tile--${tile.toString()} tile--tile-pos-${i}-${j}`;
-                        newTileElem.innerHTML = tile.toString();
-                        this.gridElem.appendChild(newTileElem);
-                    }
-                }
+            // Если игровое поле изменилось, то добавляем новый тайл
+            if (this.field.wasGridChanged()) {
+                this.addRandomTile();
             }
+
+            // Рендерим поле
+            this.view.renderGrid(this.field);
+            this.view.renderHeader(this.score, this.score - this.prevScore);
         }
     }
 
@@ -101,22 +64,17 @@ class Game {
         this.nextTileId++;
     }
 
-    renderScore(score, additionScore) {
-        // Обновляем значение счёта
-        const scoreValueElem = this.scoreElem.querySelector('.score__value');
-        scoreValueElem.innerHTML = score;
+    updateScore() {
+        this.prevScore = this.score;
 
-        // Удаляем существующий элемент прибавки счёта
-        const additionScoreElem = this.scoreElem.querySelector('.score__addition');
-        if (additionScoreElem !== null) {
-            additionScoreElem.remove();
+        for (let i = 0; i < this.field.size; i++) {
+            for (let j = 0; j < this.field.size; j++) {
+                const tile = this.field.getCell(i, j);
+                if (tile !== null && tile.mergedFrom !== null) {
+                    this.score += tile.valueOf();
+                }
+            }
         }
-
-        // Создаём новый и добавляем его на страницу
-        const newAdditionScoreElem = document.createElement('span');
-        newAdditionScoreElem.innerHTML = additionScore;
-        newAdditionScoreElem.className = 'score__addition';
-        this.scoreElem.appendChild(newAdditionScoreElem);
     }
 }
 

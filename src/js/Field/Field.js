@@ -1,5 +1,7 @@
 class Field {
-    constructor(n = 4, merge, compare) {
+    constructor(size = 4, merge, compare) {
+        this.size = size;
+
         this.merge = merge;
         this.compare = compare;
 
@@ -10,9 +12,9 @@ class Field {
         this.grid = [];
 
         // Заполняем массив поля нулевыми значениями
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i < size; i++) {
             this.grid[i] = [];
-            for (let j = 0; j < n; j++) {
+            for (let j = 0; j < size; j++) {
                 this.grid[i][j] = null;
             }
         }
@@ -69,6 +71,10 @@ class Field {
      */
     setCell(i, j, elem) {
         this.grid[i][j] = elem;
+    }
+
+    getCell(i, j) {
+        return this.grid[i][j];
     }
 
     /**

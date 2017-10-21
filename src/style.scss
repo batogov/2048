@@ -18,26 +18,28 @@ body {
     margin-top: 50px;
 }
 
-.score {
+.header {
     position: relative;
 
     margin-bottom: 25px;
 
     text-align: center;
 
-    &__title {
+    &__score-title,
+    &__result-score {
         display: block;
         color: #9D9D9D;
         font-size: 18px;
     }
 
-    &__value {
+    &__score-value,
+    &__result-title {
         display: block;
         color: #000;
         font-size: 36px;
     }
 
-    &__addition {
+    &__score-addition {
         position: absolute;
         bottom: 0;
         left: 50%;
