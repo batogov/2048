@@ -20,6 +20,10 @@ module.exports = merge([{
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: 'babel-loader'
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader?removeSVGTagAttrs=false'
             }
         ]
     },
