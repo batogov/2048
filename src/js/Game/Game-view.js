@@ -10,14 +10,12 @@ class GameView {
         this.fieldElem = container.appendChild(this.createElement('div', 'field'));
         this.footerElem = container.appendChild(this.createElement('div', 'footer'));
         gameElem.appendChild(container);
-
-        this.init();
     }
 
-    init() {
-        this.renderHeader(0);
+    init(score, footerTitle) {
+        this.renderHeader(score);
         this.renderField();
-        this.renderFooter('Use arrow keys or swipe to join the numbers and get to the 2048 tile!');
+        this.renderFooter(footerTitle);
     }
 
     createElement(elementName, className = '', content = '') {
@@ -102,10 +100,23 @@ class GameView {
         this.headerElem.appendChild(this.getElementFromTemplate(template));
     }
 
-    renderFooter(annotation, icon) {
+    renderGameOverHeader(title, score) {
+        let template = `
+            <span class="header__result-title">${title}</span>
+            <span class="header__result-score">with score ${score}</span>
+        `;
+
+        this.headerElem.innerHTML = '';
+        this.headerElem.appendChild(this.getElementFromTemplate(template));
+    }
+
+    renderFooter(annotation, isAnimated = false) {
+        let iconClassName = 'footer__repeat-icon';
+        if (isAnimated) { iconClassName += ' footer__repeat-icon--rotate' };
+
         const template = `
             <span class="footer__annotation">${annotation}</span>
-            <div class="footer__repeat-icon">${this.icon}</div>
+            <div class="${iconClassName}">${this.icon}</div>
         `;
 
         this.footerElem.innerHTML = '';

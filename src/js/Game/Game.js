@@ -9,6 +9,8 @@ class Game {
         this.field = new Field(4, Tile.merge, Tile.compare);
         this.nextTileId = 0;
 
+        this.gameOverSet = new Set();
+
         this.prevScore = 0;
         this.score = 0;
 
@@ -18,6 +20,17 @@ class Game {
             '39': 'right',
             '40': 'down',
         }
+
+        this.GAMEOVER_TITLES = {
+            'win': 'You win! 😎',
+            'lose': 'You lose! 😥'
+        }
+
+        this.FOOTER_ANNOTATIONS = {
+            'game': 'Use arrow keys or swipe to join the numbers and get to the 2048 tile!',
+            'win': 'Awesome! Are you going to play again, right?',
+            'lose': `All right, let's try it again!`
+        }
     }
 
     /**
@@ -25,6 +38,7 @@ class Game {
      */
     init() {
         this.view = new GameView(this.gameElem);
+        this.view.init(0, this.FOOTER_ANNOTATIONS['game']);
 
         // Обработчик на нажатие клавиш
         document.addEventListener('keydown', this.onKeydown.bind(this));
@@ -45,11 +59,20 @@ class Game {
             // Если игровое поле изменилось, то добавляем новый тайл
             if (this.field.wasGridChanged()) {
                 this.addRandomTile();
-            }
 
-            // Рендерим поле
-            this.view.renderGrid(this.field);
-            this.view.renderHeader(this.score, this.score - this.prevScore);
+                // Рендерим поле
+                this.view.renderGrid(this.field);
+                this.view.renderHeader(this.score, this.score - this.prevScore);
+
+                this.gameOverSet.clear();
+            } else {
+                this.gameOverSet.add(keyCodeStr);
+
+                if (this.gameOverSet.size === 4) {
+                    this.view.renderGameOverHeader(this.GAMEOVER_TITLES['lose'], this.score);
+                    this.view.renderFooter(this.FOOTER_ANNOTATIONS['lose'], true);
+                }
+            }
         }
     }
 
