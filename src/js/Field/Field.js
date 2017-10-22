@@ -12,12 +12,7 @@ class Field {
         this.grid = [];
 
         // Заполняем массив поля нулевыми значениями
-        for (let i = 0; i < size; i++) {
-            this.grid[i] = [];
-            for (let j = 0; j < size; j++) {
-                this.grid[i][j] = null;
-            }
-        }
+        this.zeroFill();
     }
 
     /**
@@ -75,6 +70,21 @@ class Field {
 
     getCell(i, j) {
         return this.grid[i][j];
+    }
+
+    reset() {
+        this.prevGrid = [];
+        this.grid = [];
+        this.zeroFill();
+    }
+
+    zeroFill() {
+        for (let i = 0; i < this.size; i++) {
+            this.grid[i] = [];
+            for (let j = 0; j < this.size; j++) {
+                this.grid[i][j] = null;
+            }
+        }
     }
 
     /**

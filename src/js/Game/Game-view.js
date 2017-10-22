@@ -122,6 +122,14 @@ class GameView {
         this.footerElem.innerHTML = '';
         this.footerElem.appendChild(this.getElementFromTemplate(template));
     }
+
+    setRepeatBtnListener() {
+        this.footerElem.querySelector('.footer__repeat-icon').onclick = (event) => {
+            this.onRepeatBtnClick();
+        };
+    }
+
+    onRepeatBtnClick() {}
 }
 
 export default GameView;

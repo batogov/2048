@@ -40,12 +40,21 @@ class Game {
         this.view = new GameView(this.gameElem);
         this.view.init(0, this.FOOTER_ANNOTATIONS['game']);
 
+        this.view.onRepeatBtnClick = this.onRepeatBtnClick.bind(this);
+        this.view.setRepeatBtnListener();
+
         // Обработчик на нажатие клавиш
         document.addEventListener('keydown', this.onKeydown.bind(this));
 
         // Инициализация
-        this.addRandomTile();
+        this.addStartTiles(2);
         this.view.renderGrid(this.field);
+    }
+
+    addStartTiles(n) {
+        for (let i = 0; i < n; i++) {
+            this.addRandomTile();
+        }
     }
 
     onKeydown(event) {
@@ -70,10 +79,26 @@ class Game {
 
                 if (this.gameOverSet.size === 4) {
                     this.view.renderGameOverHeader(this.GAMEOVER_TITLES['lose'], this.score);
+
                     this.view.renderFooter(this.FOOTER_ANNOTATIONS['lose'], true);
+                    this.view.setRepeatBtnListener();
                 }
             }
         }
+    }
+
+    onRepeatBtnClick() {
+        this.score = 0;
+        this.field.reset();
+
+        this.view.renderHeader(this.score);
+        this.view.renderField();
+        
+        this.view.renderFooter(this.FOOTER_ANNOTATIONS['game']);
+        this.view.setRepeatBtnListener();
+
+        this.addStartTiles(2);
+        this.view.renderGrid(this.field);
     }
 
     /**
@@ -81,7 +106,8 @@ class Game {
      */
     addRandomTile() {
         const randomCell = this.field.getRandomAvailableCell();
-        this.field.setCell(...randomCell, new Tile(this.nextTileId, 2));
+        const randomValue = (Math.random() > 0.7) ? 4 : 2;
+        this.field.setCell(...randomCell, new Tile(this.nextTileId, randomValue));
 
         // Инкрементируем счётчик id для следущего тайла
         this.nextTileId++;
