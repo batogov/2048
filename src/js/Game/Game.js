@@ -1,6 +1,6 @@
+import Hammer from 'hammerjs';
 import Field from './../Field/Field';
 import Tile from './../Tile/Tile';
-
 import GameView from './Game-view';
 
 class Game {
@@ -46,6 +46,13 @@ class Game {
         // Обработчик на нажатие клавиш
         document.addEventListener('keydown', this.onKeydown.bind(this));
 
+        const hammer = new Hammer(document.body);
+
+        hammer.on('swipeleft', this.onSwipeLeft.bind(this));
+        hammer.on('swiperight', this.onSwipeRight.bind(this));
+        hammer.on('swipedown', this.onSwipeDown.bind(this));
+        hammer.on('swipeup', this.onSwipeUp.bind(this));
+
         // Инициализация
         this.addStartTiles(2);
         this.view.renderGrid(this.field);
@@ -57,32 +64,52 @@ class Game {
         }
     }
 
+    onSwipeLeft() {
+        this.updateField('left');
+    }
+
+    onSwipeRight() {
+        this.updateField('right');
+    }
+
+    onSwipeDown() {
+        this.updateField('down');
+    }
+
+    onSwipeUp() {
+        this.updateField('up');
+    }
+
     onKeydown(event) {
         const keyCodeStr = String(event.keyCode);
 
         if (keyCodeStr in this.DIRECTIONS) {
-            // Сдвигаем поле в нужном направлении
-            this.field.move(this.DIRECTIONS[keyCodeStr]);
-            this.updateScore();
+            this.updateField(this.DIRECTIONS[keyCodeStr]);
+        }
+    }
 
-            // Если игровое поле изменилось, то добавляем новый тайл
-            if (this.field.wasGridChanged()) {
-                this.addRandomTile();
+    updateField(direction) {
+        // Сдвигаем поле в нужном направлении
+        this.field.move(direction);
+        this.updateScore();
 
-                // Рендерим поле
-                this.view.renderGrid(this.field);
-                this.view.renderHeader(this.score, this.score - this.prevScore);
+        // Если игровое поле изменилось, то добавляем новый тайл
+        if (this.field.wasGridChanged()) {
+            this.addRandomTile();
 
-                this.gameOverSet.clear();
-            } else {
-                this.gameOverSet.add(keyCodeStr);
+            // Рендерим поле
+            this.view.renderGrid(this.field);
+            this.view.renderHeader(this.score, this.score - this.prevScore);
 
-                if (this.gameOverSet.size === 4) {
-                    this.view.renderGameOverHeader(this.GAMEOVER_TITLES['lose'], this.score);
+            this.gameOverSet.clear();
+        } else {
+            this.gameOverSet.add(direction);
 
-                    this.view.renderFooter(this.FOOTER_ANNOTATIONS['lose'], true);
-                    this.view.setRepeatBtnListener();
-                }
+            if (this.gameOverSet.size === 4) {
+                this.view.renderGameOverHeader(this.GAMEOVER_TITLES['lose'], this.score);
+
+                this.view.renderFooter(this.FOOTER_ANNOTATIONS['lose'], true);
+                this.view.setRepeatBtnListener();
             }
         }
     }
@@ -93,7 +120,7 @@ class Game {
 
         this.view.renderHeader(this.score);
         this.view.renderField();
-        
+
         this.view.renderFooter(this.FOOTER_ANNOTATIONS['game']);
         this.view.setRepeatBtnListener();
 

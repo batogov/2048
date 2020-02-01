@@ -30,7 +30,7 @@ module.exports = merge([{
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
-        port: 9000,
+        port: 9005,
         stats: "errors-only",
         hot: true
     },
