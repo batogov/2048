@@ -46,7 +46,13 @@ class Game {
         // Обработчик на нажатие клавиш
         document.addEventListener('keydown', this.onKeydown.bind(this));
 
-        const hammer = new Hammer(document.body);
+        const hammer = new Hammer(this.gameElem);
+
+        hammer.get('swipe').set({
+            direction: Hammer.DIRECTION_ALL,
+            threshold: 1,
+            velocity: 0.1
+        });
 
         hammer.on('swipeleft', this.onSwipeLeft.bind(this));
         hammer.on('swiperight', this.onSwipeRight.bind(this));

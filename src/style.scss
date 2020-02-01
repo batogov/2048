@@ -9,13 +9,12 @@ body {
     font-family: 'Nunito', sans-serif;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-}
-
 .game {
-    margin-top: 50px;
+    margin-top: 25px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
