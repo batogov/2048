@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ecdd3196cb076cf7d73a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c4bb821f4476eafeb39f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -729,12 +729,12 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(9)(false);
+exports = module.exports = __webpack_require__(10)(false);
 // imports
 
 
 // module
-exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: 'Nunito', sans-serif; }\n\n.container {\n  display: flex;\n  justify-content: center; }\n\n.game {\n  margin-top: 50px; }\n\n.header {\n  position: relative;\n  margin-bottom: 25px;\n  text-align: center; }\n  .header__score-title, .header__result-score {\n    display: block;\n    color: #9D9D9D;\n    font-size: 18px; }\n  .header__score-value, .header__result-title {\n    display: block;\n    color: #000;\n    font-size: 36px; }\n  .header__score-addition {\n    position: absolute;\n    bottom: 0;\n    left: 50%;\n    font-size: 28px;\n    color: #00B7FF;\n    transform: translateX(-50%);\n    animation: move-up 600ms ease-in;\n    animation-fill-mode: both; }\n\n.footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 360px;\n  padding: 0 10px;\n  margin-top: 25px; }\n  .footer__annotation {\n    color: #9D9D9D;\n    font-size: 18px; }\n  .footer__repeat-icon {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-shrink: 0;\n    width: 40px;\n    height: 40px;\n    background-color: #f6f6f6;\n    border-radius: 50%; }\n    .footer__repeat-icon--rotate {\n      animation: rotation 3000ms infinite linear; }\n\n.grid {\n  position: relative;\n  width: 360px;\n  height: 360px; }\n\n.background-grid {\n  position: absolute;\n  display: flex;\n  flex-wrap: wrap;\n  width: 360px;\n  height: 360px; }\n  .background-grid__tile {\n    margin: 10px;\n    width: 70px;\n    height: 70px;\n    z-index: 0;\n    background-color: #f6f6f6;\n    border-radius: 50%; }\n\n.tile {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  margin: 10px;\n  width: 70px;\n  height: 70px;\n  color: #FFF;\n  font-size: 24px;\n  border-radius: 50%;\n  transition: 100ms ease-in-out; }\n  .tile--merged {\n    z-index: 1; }\n  .tile--new {\n    animation: appear 200ms ease 100ms;\n    animation-fill-mode: backwards; }\n  .tile--2 {\n    background-color: #00B7FF; }\n  .tile--4 {\n    background-color: #00E9D3; }\n  .tile--8 {\n    background-color: #00CC57; }\n  .tile--16 {\n    background-color: #95E211; }\n  .tile--32 {\n    background-color: #FFE400; }\n  .tile--64 {\n    background-color: #FFAC00; }\n  .tile--128 {\n    background-color: #FF601E; }\n  .tile--256 {\n    background-color: #FF0007; }\n  .tile--512 {\n    background-color: #FE76CB; }\n  .tile--1024 {\n    background-color: #D726C2; }\n  .tile--2048 {\n    background-color: #8E00DF; }\n  .tile--tile-pos-0-0 {\n    top: 0px;\n    left: 0px; }\n  .tile--tile-pos-0-1 {\n    top: 0px;\n    left: 90px; }\n  .tile--tile-pos-0-2 {\n    top: 0px;\n    left: 180px; }\n  .tile--tile-pos-0-3 {\n    top: 0px;\n    left: 270px; }\n  .tile--tile-pos-1-0 {\n    top: 90px;\n    left: 0px; }\n  .tile--tile-pos-1-1 {\n    top: 90px;\n    left: 90px; }\n  .tile--tile-pos-1-2 {\n    top: 90px;\n    left: 180px; }\n  .tile--tile-pos-1-3 {\n    top: 90px;\n    left: 270px; }\n  .tile--tile-pos-2-0 {\n    top: 180px;\n    left: 0px; }\n  .tile--tile-pos-2-1 {\n    top: 180px;\n    left: 90px; }\n  .tile--tile-pos-2-2 {\n    top: 180px;\n    left: 180px; }\n  .tile--tile-pos-2-3 {\n    top: 180px;\n    left: 270px; }\n  .tile--tile-pos-3-0 {\n    top: 270px;\n    left: 0px; }\n  .tile--tile-pos-3-1 {\n    top: 270px;\n    left: 90px; }\n  .tile--tile-pos-3-2 {\n    top: 270px;\n    left: 180px; }\n  .tile--tile-pos-3-3 {\n    top: 270px;\n    left: 270px; }\n\n@keyframes appear {\n  0% {\n    opacity: 0;\n    transform: scale(0); }\n  100% {\n    opacity: 1;\n    transform: scale(1); } }\n\n@keyframes move-up {\n  0% {\n    bottom: -20px;\n    opacity: 1; }\n  100% {\n    bottom: 10px;\n    opacity: 0; } }\n\n@keyframes rotation {\n  0%, 80% {\n    transform: rotate(0deg) scale(1); }\n  90% {\n    transform: rotate(180deg) scale(1.2); }\n  100% {\n    transform: rotate(360deg) scale(1); } }\n", ""]);
+exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: 'Nunito', sans-serif; }\n\n.game {\n  margin-top: 25px;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n.header {\n  position: relative;\n  margin-bottom: 25px;\n  text-align: center; }\n  .header__score-title, .header__result-score {\n    display: block;\n    color: #9D9D9D;\n    font-size: 18px; }\n  .header__score-value, .header__result-title {\n    display: block;\n    color: #000;\n    font-size: 36px; }\n  .header__score-addition {\n    position: absolute;\n    bottom: 0;\n    left: 50%;\n    font-size: 28px;\n    color: #00B7FF;\n    transform: translateX(-50%);\n    animation: move-up 600ms ease-in;\n    animation-fill-mode: both; }\n\n.footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 360px;\n  padding: 0 10px;\n  margin-top: 25px; }\n  .footer__annotation {\n    color: #9D9D9D;\n    font-size: 18px; }\n  .footer__repeat-icon {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-shrink: 0;\n    width: 40px;\n    height: 40px;\n    background-color: #f6f6f6;\n    border-radius: 50%; }\n    .footer__repeat-icon--rotate {\n      animation: rotation 3000ms infinite linear; }\n\n.grid {\n  position: relative;\n  width: 360px;\n  height: 360px; }\n\n.background-grid {\n  position: absolute;\n  display: flex;\n  flex-wrap: wrap;\n  width: 360px;\n  height: 360px; }\n  .background-grid__tile {\n    margin: 10px;\n    width: 70px;\n    height: 70px;\n    z-index: 0;\n    background-color: #f6f6f6;\n    border-radius: 50%; }\n\n.tile {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  margin: 10px;\n  width: 70px;\n  height: 70px;\n  color: #FFF;\n  font-size: 24px;\n  border-radius: 50%;\n  transition: 100ms ease-in-out; }\n  .tile--merged {\n    z-index: 1; }\n  .tile--new {\n    animation: appear 200ms ease 100ms;\n    animation-fill-mode: backwards; }\n  .tile--2 {\n    background-color: #00B7FF; }\n  .tile--4 {\n    background-color: #00E9D3; }\n  .tile--8 {\n    background-color: #00CC57; }\n  .tile--16 {\n    background-color: #95E211; }\n  .tile--32 {\n    background-color: #FFE400; }\n  .tile--64 {\n    background-color: #FFAC00; }\n  .tile--128 {\n    background-color: #FF601E; }\n  .tile--256 {\n    background-color: #FF0007; }\n  .tile--512 {\n    background-color: #FE76CB; }\n  .tile--1024 {\n    background-color: #D726C2; }\n  .tile--2048 {\n    background-color: #8E00DF; }\n  .tile--tile-pos-0-0 {\n    top: 0px;\n    left: 0px; }\n  .tile--tile-pos-0-1 {\n    top: 0px;\n    left: 90px; }\n  .tile--tile-pos-0-2 {\n    top: 0px;\n    left: 180px; }\n  .tile--tile-pos-0-3 {\n    top: 0px;\n    left: 270px; }\n  .tile--tile-pos-1-0 {\n    top: 90px;\n    left: 0px; }\n  .tile--tile-pos-1-1 {\n    top: 90px;\n    left: 90px; }\n  .tile--tile-pos-1-2 {\n    top: 90px;\n    left: 180px; }\n  .tile--tile-pos-1-3 {\n    top: 90px;\n    left: 270px; }\n  .tile--tile-pos-2-0 {\n    top: 180px;\n    left: 0px; }\n  .tile--tile-pos-2-1 {\n    top: 180px;\n    left: 90px; }\n  .tile--tile-pos-2-2 {\n    top: 180px;\n    left: 180px; }\n  .tile--tile-pos-2-3 {\n    top: 180px;\n    left: 270px; }\n  .tile--tile-pos-3-0 {\n    top: 270px;\n    left: 0px; }\n  .tile--tile-pos-3-1 {\n    top: 270px;\n    left: 90px; }\n  .tile--tile-pos-3-2 {\n    top: 270px;\n    left: 180px; }\n  .tile--tile-pos-3-3 {\n    top: 270px;\n    left: 270px; }\n\n@keyframes appear {\n  0% {\n    opacity: 0;\n    transform: scale(0); }\n  100% {\n    opacity: 1;\n    transform: scale(1); } }\n\n@keyframes move-up {\n  0% {\n    bottom: -20px;\n    opacity: 1; }\n  100% {\n    bottom: 10px;\n    opacity: 0; } }\n\n@keyframes rotation {\n  0%, 80% {\n    transform: rotate(0deg) scale(1); }\n  90% {\n    transform: rotate(180deg) scale(1.2); }\n  100% {\n    transform: rotate(360deg) scale(1); } }\n", ""]);
 
 // exports
 
@@ -743,14 +743,22 @@ exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  margin: 0
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(2);
+(function webpackMissingModule() { throw new Error("Cannot find module \"build\""); }());
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
-var _Game = __webpack_require__(2);
+var _Game = __webpack_require__(3);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-__webpack_require__(8);
+__webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -760,7 +768,7 @@ var game = new _Game2.default(gameElem);
 game.init();
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -772,19 +780,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _hammerjs = __webpack_require__(3);
+var _hammerjs = __webpack_require__(4);
 
 var _hammerjs2 = _interopRequireDefault(_hammerjs);
 
-var _Field = __webpack_require__(4);
+var _Field = __webpack_require__(5);
 
 var _Field2 = _interopRequireDefault(_Field);
 
-var _Tile = __webpack_require__(5);
+var _Tile = __webpack_require__(6);
 
 var _Tile2 = _interopRequireDefault(_Tile);
 
-var _GameView = __webpack_require__(6);
+var _GameView = __webpack_require__(7);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -843,7 +851,13 @@ var Game = function () {
             // Обработчик на нажатие клавиш
             document.addEventListener('keydown', this.onKeydown.bind(this));
 
-            var hammer = new _hammerjs2.default(document.body);
+            var hammer = new _hammerjs2.default(this.gameElem);
+
+            hammer.get('swipe').set({
+                direction: _hammerjs2.default.DIRECTION_ALL,
+                threshold: 1,
+                velocity: 0.1
+            });
 
             hammer.on('swipeleft', this.onSwipeLeft.bind(this));
             hammer.on('swiperight', this.onSwipeRight.bind(this));
@@ -971,7 +985,7 @@ var Game = function () {
 exports.default = Game;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -3621,7 +3635,7 @@ if (true) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3921,7 +3935,7 @@ var Field = function () {
 exports.default = Field;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3994,7 +4008,7 @@ var Tile = function () {
 exports.default = Tile;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4006,7 +4020,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _refresh = __webpack_require__(7);
+var _refresh = __webpack_require__(8);
 
 var _refresh2 = _interopRequireDefault(_refresh);
 
@@ -4167,13 +4181,13 @@ var GameView = function () {
 exports.default = GameView;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = "<svg width=\"20px\" height=\"20px\" viewBox=\"0 0 48 48\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><g id=\"Symbols\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\"><g id=\"1.16\" fill-rule=\"nonzero\" fill=\"#000000\"><g id=\"Combined-Shape\"><path d=\"M4,36.6191712 L4,38.9914698 C4,40.1007504 3.11227036,41 2,41 C0.8954305,41 -2.3883926e-15,40.0980496 -2.04960024e-15,38.9914698 L3.94470118e-16,31.0085302 C3.94905597e-16,31.0071078 1.45958534e-06,31.0056858 4.37735785e-06,31.0042641 C1.47067839e-06,31.0028445 0,31.0014224 0,31 C0,30.4491344 0.22433028,29.9502851 0.586495929,29.5885791 C0.946425332,29.2236628 1.44528861,29 2,29 C2.00142238,29 2.00284442,29.0000015 2.00426611,29.0000045 C2.00568581,29.0000015 2.00710783,29 2.0085302,29 L9.9914698,29 C11.1007504,29 12,29.8877296 12,31 C12,32.1045695 11.0980496,33 9.9914698,33 L6.46658879,33 C9.80121095,38.9661535 16.1795278,43 23.5,43 C34.2695526,43 43,34.2695526 43,23.5 C43,23.3328337 42.9978965,23.1661587 42.9937146,23 L46.9947863,23 C46.9982564,23.166248 47,23.3329204 47,23.5 C47,36.4786916 36.4786916,47 23.5,47 C15.3797121,47 8.22137739,42.881389 4,36.6191712 Z M43,10.3808288 L43,8.0085302 C43,6.8992496 43.8877296,6 45,6 C46.1045695,6 47,6.90195036 47,8.0085302 L47,15.9914698 C47,15.9928922 46.9999985,15.9943142 46.9999956,15.9957359 C46.9999985,15.9971555 47,15.9985776 47,16 C47,16.5508656 46.7756697,17.0497149 46.4135041,17.4114209 C46.0535747,17.7763372 45.5547114,18 45,18 C44.9985776,18 44.9971556,17.9999985 44.9957339,17.9999955 C44.9943142,17.9999985 44.9928922,18 44.9914698,18 L37.0085302,18 C35.8992496,18 35,17.1122704 35,16 C35,14.8954305 35.9019504,14 37.0085302,14 L40.5334112,14 C37.1987891,8.03384646 30.8204722,4 23.5,4 C12.8976137,4 4.27152142,12.4615207 4.00628542,23 L0.00521369459,23 C0.27129688,10.2521624 10.688388,0 23.5,0 C31.6202879,0 38.7786226,4.11861099 43,10.3808288 Z\"></path></g></g></g></svg>"
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4187,7 +4201,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(10)(content, options);
+var update = __webpack_require__(11)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(true) {
@@ -4204,7 +4218,7 @@ if(true) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /*
@@ -4286,7 +4300,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -4342,7 +4356,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(11);
+var	fixUrls = __webpack_require__(12);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -4658,7 +4672,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 
